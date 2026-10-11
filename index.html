@@ -1,1126 +1,1345 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f8f6f0">
-  <meta name="description" content="LUMÉA — minimalistyczna pielęgnacja skóry. Odkryj kosmetyki stworzone z myślą o codziennych rytuałach.">
-  <title>LUMÉA — Pielęgnacja w harmonii</title>
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="pl_PL">
-  <meta property="og:title" content="LUMÉA — Pielęgnacja w harmonii">
-  <meta property="og:description" content="Minimalistyczna pielęgnacja skóry. Mniej, ale świadomiej.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85">
-
-  <style>
-    :root {
-      --bg: #f8f6f0;
-      --paper: #fffefa;
-      --ink: #292a24;
-      --muted: #6a6a5f;
-      --line: #e4e0d5;
-      --olive: #62694b;
-      --dark: #30372a;
-      --serif: Georgia, "Times New Roman", serif;
-      --sans: Arial, Helvetica, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--sans);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body, button, a { -webkit-tap-highlight-color: transparent; }
-
-    a { color: inherit; text-decoration: none; }
-
-    button { font: inherit; }
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* ---- Видимый фокус ---- */
-    a:focus-visible,
-    button:focus-visible,
-    input:focus-visible {
-      outline: 2px solid var(--olive);
-      outline-offset: 3px;
-    }
-
-    /* ---- Skip link ---- */
-    .skip-link {
-      position: absolute;
-      top: -100px;
-      left: 12px;
-      z-index: 100;
-      padding: 12px 18px;
-      background: var(--dark);
-      color: #fff;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: top .2s;
-    }
-
-    .skip-link:focus {
-      top: 12px;
-      outline: 2px solid #fff;
-      outline-offset: 2px;
-    }
-
-    /* ---- Скрытая метка ---- */
-    .visually-hidden {
-      position: absolute !important;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .announcement {
-      padding: 10px 16px;
-      background: var(--dark);
-      color: #fff;
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(248, 246, 240, .96);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav {
-      max-width: 1400px;
-      height: 76px;
-      padding: 0 6%;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .logo {
-      font-family: var(--serif);
-      font-size: 32px;
-      letter-spacing: 5px;
-      font-weight: normal;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-
-    .nav-links a, .cart-button {
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .nav-links a:hover { color: var(--olive); }
-
-    .cart-button {
-      border: 1px solid var(--line);
-      background: transparent;
-      padding: 12px 15px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .menu-toggle {
-      display: none;
-      border: 0;
-      background: none;
-      font-size: 25px;
-      cursor: pointer;
-      padding: 8px;
-      line-height: 1;
-    }
-
-    .hero {
-      max-width: 1600px;
-      min-height: 590px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .hero-copy {
-      padding: 90px 9% 80px 13%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .eyebrow {
-      color: var(--olive);
-      font-size: 10px;
-      font-weight: normal;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3, p { margin-top: 0; }
-
-    h1 {
-      margin: 28px 0 24px;
-      font-family: var(--serif);
-      font-size: clamp(48px, 5.6vw, 78px);
-      line-height: 1.04;
-      font-weight: normal;
-      letter-spacing: -2px;
-    }
-
-    h1 em, h2 em {
-      color: var(--olive);
-      font-weight: normal;
-      font-style: italic;
-    }
-
-    .hero-copy > p {
-      max-width: 370px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    .button {
-      display: inline-flex;
-      min-height: 49px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 25px;
-      background: var(--dark);
-      color: white;
-      border: 1px solid var(--dark);
-      font-size: 10px;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background .2s, color .2s;
-    }
-
-    .button:hover {
-      background: transparent;
-      color: var(--dark);
-    }
-
-    .button-outline {
-      background: transparent;
-      color: var(--dark);
-    }
-
-    .button-outline:hover {
-      background: var(--dark);
-      color: white;
-    }
-
-    .hero-image {
-      min-height: 590px;
-      overflow: hidden;
-      background: #e7dfd0;
-    }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 25px 6%;
-      gap: 20px;
-      margin: 0;
-      list-style: none;
-    }
-
-    .benefit {
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .benefit span {
-      display: block;
-      color: var(--muted);
-      margin-top: 7px;
-      font-size: 11px;
-      letter-spacing: .2px;
-      text-transform: none;
-    }
-
-    section.content-section {
-      max-width: 1400px;
-      padding: 100px 6%;
-      margin: auto;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 25px;
-      margin-bottom: 38px;
-    }
-
-    h2 {
-      font-family: var(--serif);
-      font-size: clamp(36px, 4vw, 53px);
-      font-weight: normal;
-      letter-spacing: -1px;
-      line-height: 1.12;
-      margin: 14px 0 0;
-    }
-
-    .section-description {
-      max-width: 320px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.8;
-      margin-bottom: 4px;
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .filter {
-      padding: 11px 17px;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--ink);
-      font-size: 10px;
-      letter-spacing: 1px;
-      cursor: pointer;
-    }
-
-    .filter.active, .filter:hover {
-      background: var(--dark);
-      color: white;
-      border-color: var(--dark);
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .product { min-width: 0; }
-
-    .product-image {
-      position: relative;
-      aspect-ratio: 4 / 5;
-      background: #eee9df;
-      overflow: hidden;
-    }
-
-    .product-image img {
-      transition: transform .6s ease;
-    }
-
-    .product:hover .product-image img {
-      transform: scale(1.045);
-    }
-
-    .product-tag {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      padding: 8px 10px;
-      background: var(--paper);
-      font-size: 9px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .product-info { padding: 18px 2px 0; }
-
-    .product-category {
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-    }
-
-    .product h3 {
-      margin: 10px 0;
-      font-family: var(--serif);
-      font-size: 23px;
-      font-weight: normal;
-    }
-
-    .product-description {
-      min-height: 35px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    .product-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 17px;
-    }
-
-    .price { font-size: 13px; }
-
-    .add-button {
-      padding: 11px 13px;
-      border: 1px solid var(--line);
-      background: transparent;
-      cursor: pointer;
-      font-size: 9px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .add-button:hover {
-      background: var(--dark);
-      color: white;
-    }
-
-    .ritual {
-      max-width: 1600px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: #eae6dc;
-    }
-
-    .ritual-image {
-      min-height: 470px;
-      background: #ded6c7;
-    }
-
-    .ritual-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 70px 12%;
-    }
-
-    .ritual-copy p {
-      max-width: 400px;
-      margin: 22px 0 28px;
-      color: #5c5d52;
-      font-size: 13px;
-      line-height: 2;
-    }
-
-    .philosophy {
-      max-width: 1000px;
-      margin: auto;
-      padding: 115px 7%;
-      text-align: center;
-    }
-
-    .philosophy h2 {
-      max-width: 740px;
-      margin: 22px auto;
-      font-size: clamp(38px, 5vw, 62px);
-    }
-
-    .philosophy p {
-      max-width: 560px;
-      margin: 25px auto 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 2;
-    }
-
-    .newsletter {
-      padding: 75px 6%;
-      background: #e9e5da;
-      text-align: center;
-    }
-
-    .newsletter h2 { font-size: 43px; }
-
-    .newsletter p {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.8;
-      margin: 17px 0 25px;
-    }
-
-    .newsletter-form {
-      display: flex;
-      max-width: 440px;
-      margin: auto;
-      gap: 8px;
-    }
-
-    .newsletter-form input {
-      flex: 1;
-      min-width: 0;
-      padding: 15px;
-      border: 1px solid #d4d0c4;
-      background: var(--paper);
-      border-radius: 0;
-      font-size: 12px;
-    }
-
-    .newsletter-form button {
-      padding: 0 18px;
-      border: 0;
-      background: var(--dark);
-      color: white;
-      font-size: 10px;
-      letter-spacing: 1px;
-      cursor: pointer;
-    }
-
-    .form-message {
-      min-height: 18px;
-      margin-top: 15px;
-      font-size: 12px;
-    }
-
-    footer {
-      padding: 45px 6% 25px;
-      background: var(--dark);
-      color: #f8f6f0;
-    }
-
-    .footer-main {
-      max-width: 1300px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      flex-wrap: wrap;
-      align-items: flex-start;
-    }
-
-    .footer-brand .logo { font-size: 29px; }
-
-    .footer-brand p {
-      margin-top: 15px;
-      color: #c0c2b5;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 23px;
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .footer-links a:hover { color: #c7cbb3; }
-
-    .footer-bottom {
-      max-width: 1300px;
-      margin: 40px auto 0;
-      padding-top: 20px;
-      border-top: 1px solid #555a4b;
-      color: #c0c2b5;
-      font-size: 10px;
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .toast {
-      position: fixed;
-      z-index: 50;
-      left: 50%;
-      bottom: calc(25px + env(safe-area-inset-bottom, 0px));
-      transform: translate(-50%, 20px);
-      padding: 15px 22px;
-      max-width: calc(100% - 32px);
-      background: var(--dark);
-      color: white;
-      font-size: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s, transform .2s;
-      text-align: center;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    [hidden] { display: none !important; }
-
-    @media (min-width: 1500px) {
-      .hero-copy { padding-left: 15%; }
-    }
-
-    @media (max-width: 850px) {
-      .nav { padding: 0 5%; height: 68px; }
-      .logo { font-size: 27px; }
-      .nav-links { gap: 15px; }
-      .nav-links a { font-size: 9px; }
-      .hero { min-height: 480px; }
-      .hero-copy { padding: 55px 8%; }
-      .hero-image { min-height: 480px; }
-      .products { gap: 15px; }
-      .product h3 { font-size: 20px; }
-      .product-bottom { align-items: flex-start; flex-direction: column; }
-      section.content-section { padding: 75px 5%; }
-    }
-
-    @media (max-width: 600px) {
-      .announcement {
-        font-size: 8px;
-        letter-spacing: 1px;
-      }
-
-      .nav { height: 65px; }
-      .logo { font-size: 25px; letter-spacing: 4px; }
-
-      .menu-toggle { display: block; order: 3; }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        right: 0;
-        padding: 24px 5%;
-        background: var(--bg);
-        border-bottom: 1px solid var(--line);
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-      }
-
-      .nav-links.open { display: flex; }
-
-      .nav-links a {
-        padding: 16px 0;
-        border-bottom: 1px solid var(--line);
-        font-size: 11px;
-      }
-
-      .nav-links a:last-child { border-bottom: 0; }
-
-      .cart-button {
-        padding: 10px;
-        font-size: 9px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-copy {
-        padding: 65px 7% 55px;
-        order: 2;
-      }
-
-      .hero-image {
-        min-height: 0;
-        height: 390px;
-        order: 1;
-      }
-
-      h1 {
-        font-size: clamp(49px, 13vw, 68px);
-        margin-top: 20px;
-      }
-
-      .hero-copy > p { font-size: 13px; }
-
-      /* Преимущества: 1 колонка, крупнее шрифт */
-      .benefits {
-        grid-template-columns: 1fr;
-        padding: 25px 6%;
-        gap: 18px;
-      }
-
-      .benefit {
-        font-size: 10px;
-        letter-spacing: 1px;
-        line-height: 1.6;
-      }
-
-      .benefit span { font-size: 11px; }
-
-      section.content-section { padding: 70px 5%; }
-
-      .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-        margin-bottom: 25px;
-      }
-
-      h2 { font-size: 40px; }
-
-      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
-
-      .product h3 { font-size: 19px; }
-      .product-description { font-size: 10px; }
-      .product-tag { top: 8px; left: 8px; font-size: 8px; padding: 7px; }
-
-      .product-bottom { gap: 12px; }
-      .add-button { width: 100%; padding: 12px 5px; }
-
-      .ritual { grid-template-columns: 1fr; }
-
-      .ritual-image { min-height: 0; height: 340px; }
-
-      .ritual-copy { padding: 55px 7%; }
-
-      .philosophy { padding: 80px 7%; }
-      .philosophy h2 { font-size: 43px; }
-
-      .newsletter { padding: 65px 5%; }
-      .newsletter h2 { font-size: 37px; }
-
-      .newsletter-form { flex-direction: column; }
-      .newsletter-form input, .newsletter-form button { min-height: 48px; }
-
-      footer { padding: 40px 6% 22px; }
-      .footer-main { flex-direction: column; }
-      .footer-links { gap: 17px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f6f0">
+<meta name="description" content="LUMÉA — minimalistyczna pielęgnacja skóry. Odkryj swoją codzienną rutynę.">
+<title>LUMÉA — Pielęgnacja w harmonii</title>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="LUMÉA — Pielęgnacja w harmonii">
+<meta property="og:description" content="Minimalistyczna pielęgnacja skóry. Odkryj swoją codzienną rutynę.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85">
+<meta property="og:locale" content="pl_PL">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+:root {
+  --bg: #f8f6f0;
+  --paper: #fffefa;
+  --ink: #292a24;
+  --muted: #77776c;
+  --line: #e4e0d5;
+  --olive: #62694b;
+  --dark: #30372a;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  z-index: 100;
+  padding: 12px 18px;
+  background: var(--dark);
+  color: white;
+  font-size: 10px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  transition: top .2s;
+}
+.skip-link:focus { top: 12px; }
+
+.announcement {
+  padding: 11px 15px;
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(248,246,240,.97);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.nav {
+  position: relative;
+  max-width: 1400px;
+  height: 74px;
+  margin: auto;
+  padding: 0 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-family: var(--serif);
+  font-size: 31px;
+  letter-spacing: 5px;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.nav-links a,
+.cart-button {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover { color: var(--olive); }
+
+.cart-wrap { position: relative; }
+
+.cart-button {
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cart-button:hover { border-color: var(--dark); }
+
+.cart-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 30;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  padding: 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 14px 40px rgba(48,55,42,.12);
+}
+
+.cart-panel h3 {
+  margin: 0 0 12px;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.cart-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+}
+.cart-item:last-child { border-bottom: 0; }
+
+.cart-item-name { line-height: 1.4; }
+
+.cart-item-meta {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .5px;
+}
+
+.cart-remove {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.cart-remove:hover {
+  color: white;
+  background: var(--dark);
+  border-color: var(--dark);
+}
+
+.cart-empty {
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.cart-footer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cart-footer .cart-total {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 8px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.hero {
+  max-width: 1600px;
+  min-height: 580px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hero-image {
+  order: 2;
+  min-height: 580px;
+  background: #e7dfd0;
+  overflow: hidden;
+}
+
+.hero-image img { object-position: center; }
+
+.hero-copy {
+  order: 1;
+  padding: 75px 9% 75px 13%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  color: var(--olive);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1 {
+  margin: 24px 0;
+  font-family: var(--serif);
+  font-weight: normal;
+  font-size: clamp(46px, 5.3vw, 75px);
+  line-height: 1.06;
+  letter-spacing: -1.8px;
+}
+
+h1 em, h2 em {
+  color: var(--olive);
+  font-weight: normal;
+  font-style: italic;
+}
+
+.hero-copy p {
+  max-width: 370px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 49px;
+  padding: 0 23px;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark);
+  color: white;
+  border: 1px solid var(--dark);
+  font-size: 10px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.button:hover {
+  background: transparent;
+  color: var(--dark);
+}
+
+.button-outline {
+  color: var(--dark);
+  background: transparent;
+}
+
+.button-outline:hover {
+  background: var(--dark);
+  color: white;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 25px 6%;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.benefit {
+  min-width: 0;
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.benefit span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.content-section {
+  max-width: 1400px;
+  margin: auto;
+  padding: 95px 6%;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 36px;
+}
+
+h2 {
+  margin: 13px 0 0;
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 53px);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  font-weight: normal;
+}
+
+.section-description {
+  max-width: 330px;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 30px;
+}
+
+.filter {
+  padding: 11px 16px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-size: 10px;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.filter.active,
+.filter:hover {
+  color: white;
+  background: var(--dark);
+  border-color: var(--dark);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.product { min-width: 0; }
+
+.product-image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #eee9df;
+}
+
+.product-image img {
+  transition: transform .5s ease;
+}
+
+.product:hover .product-image img {
+  transform: scale(1.04);
+}
+
+.product-tag {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  padding: 8px 10px;
+  background: var(--paper);
+  font-size: 9px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+}
+
+.product-info { padding-top: 17px; }
+
+.product-category {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.product h3 {
+  margin: 9px 0;
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: normal;
+}
+
+.product-description {
+  min-height: 38px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.product-bottom {
+  margin-top: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.price { font-size: 13px; }
+
+.add-button {
+  padding: 11px 12px;
+  background: transparent;
+  border: 1px solid var(--line);
+  font-size: 9px;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.add-button:hover {
+  color: white;
+  background: var(--dark);
+  border-color: var(--dark);
+}
+
+.ritual {
+  max-width: 1600px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #eae6dc;
+}
+
+.ritual-image {
+  min-height: 460px;
+  background: #ded6c7;
+}
+
+.ritual-copy {
+  padding: 65px 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ritual-copy p {
+  max-width: 400px;
+  margin: 22px 0 28px;
+  color: #6f7065;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.philosophy {
+  max-width: 1000px;
+  margin: auto;
+  padding: 110px 7%;
+  text-align: center;
+}
+
+.philosophy h2 {
+  max-width: 730px;
+  margin: 22px auto;
+  font-size: clamp(38px, 5vw, 62px);
+}
+
+.philosophy p {
+  max-width: 560px;
+  margin: 24px auto 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.newsletter {
+  padding: 75px 6%;
+  background: #e9e5da;
+  text-align: center;
+}
+
+.newsletter h2 { font-size: 43px; }
+
+.newsletter > p {
+  margin: 17px 0 25px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.newsletter-form {
+  max-width: 440px;
+  margin: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #d4d0c4;
+  border-radius: 0;
+  background: var(--paper);
+  font-size: 12px;
+}
+
+.newsletter-form button {
+  padding: 0 20px;
+  border: 0;
+  background: var(--dark);
+  color: white;
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.form-message {
+  min-height: 18px;
+  margin: 15px 0 0 !important;
+  color: var(--olive);
+  font-size: 11px;
+}
+
+footer {
+  padding: 45px 6% 24px;
+  background: var(--dark);
+  color: #f8f6f0;
+}
+
+.footer-main {
+  max-width: 1300px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-brand p {
+  margin-top: 15px;
+  color: #c0c2b5;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.footer-links a:hover { color: #d4d8c5; }
+
+.footer-bottom {
+  max-width: 1300px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #555a4b;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  color: #c0c2b5;
+  font-size: 10px;
+}
+
+.toast {
+  position: fixed;
+  z-index: 50;
+  bottom: 24px;
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 15px 20px;
+  transform: translate(-50%, 15px);
+  background: var(--dark);
+  color: white;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+[hidden] { display: none !important; }
+
+@media (max-width: 850px) {
+  .nav { padding: 0 4%; }
+  .hero { min-height: 470px; }
+  .hero-copy { padding: 50px 8%; }
+  .hero-image { min-height: 470px; }
+  .products { gap: 15px; }
+  .product h3 { font-size: 20px; }
+  .product-bottom { align-items: flex-start; flex-direction: column; }
+  .content-section { padding: 75px 5%; }
+}
+
+@media (max-width: 760px) {
+  .nav {
+    height: 65px;
+    padding: 0 5%;
+    gap: 9px;
+  }
+
+  .logo {
+    font-size: 24px;
+    letter-spacing: 4px;
+  }
+
+  .menu-toggle {
+    display: block;
+    order: 3;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 15px 6% 22px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links a {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 11px;
+  }
+
+  .cart-wrap { margin-left: auto; }
+
+  .cart-button {
+    padding: 10px 8px;
+    font-size: 9px;
+  }
+
+  .cart-panel {
+    right: -6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .announcement {
+    padding: 10px 8px;
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image {
+    order: 1;
+    min-height: 0;
+    height: 350px;
+  }
+
+  .hero-copy {
+    order: 2;
+    padding: 50px 7% 55px;
+  }
+
+  h1 {
+    margin: 18px 0 20px;
+    font-size: clamp(46px, 12vw, 63px);
+  }
+
+  .hero-copy p { font-size: 12px; }
+
+  .benefits {
+    padding: 20px 3%;
+    gap: 9px;
+  }
+
+  .benefit {
+    font-size: 8px;
+    letter-spacing: .5px;
+    line-height: 1.6;
+  }
+
+  .benefit span {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .content-section { padding: 65px 5%; }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 25px;
+  }
+
+  h2 { font-size: 40px; }
+
+  .section-description { font-size: 11px; }
+
+  .filters { gap: 7px; }
+  .filter { padding: 10px 12px; font-size: 9px; }
+
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 12px;
+  }
+
+  .product-tag {
+    top: 8px;
+    left: 7px;
+    padding: 6px;
+    font-size: 7px;
+  }
+
+  .product h3 { font-size: 19px; }
+  .product-description { font-size: 10px; }
+
+  .product-bottom {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .add-button { width: 100%; }
+
+  .ritual { grid-template-columns: 1fr; }
+  .ritual-image { min-height: 0; height: 310px; }
+  .ritual-copy { padding: 50px 7%; }
+
+  .philosophy { padding: 75px 7%; }
+  .philosophy h2 { font-size: 42px; }
+
+  .newsletter { padding: 60px 5%; }
+  .newsletter h2 { font-size: 35px; }
+
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form input,
+  .newsletter-form button { min-height: 48px; }
+
+  footer { padding: 38px 6% 22px; }
+  .footer-main { flex-direction: column; }
+  .footer-links { gap: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <a class="skip-link" href="#produkty">Przejdź do produktów</a>
 
-  <div class="announcement">
-    LUMÉA — mniej, ale świadomiej
+<a class="skip-link" href="#main">Przejdź do treści</a>
+
+<div class="announcement">
+  LUMÉA — MNIEJ, ALE ŚWIADOMIEJ
+</div>
+
+<header>
+  <nav class="nav" aria-label="Nawigacja główna">
+    <a class="logo" href="#home">LUMÉA</a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Strona główna</a>
+      <a href="#produkty">Produkty</a>
+      <a href="#rytual">Rytuały</a>
+      <a href="#filozofia">O marce</a>
+    </div>
+
+    <div class="cart-wrap" id="cartWrap">
+      <button class="cart-button" id="cartButton" type="button"
+        aria-expanded="false" aria-controls="cartPanel">
+        Koszyk (<span id="cartCount">0</span>) · <span id="cartTotal">0,00 zł</span>
+      </button>
+
+      <div class="cart-panel" id="cartPanel" hidden role="dialog" aria-label="Koszyk">
+        <h3>Twój koszyk</h3>
+        <ul class="cart-list" id="cartList"></ul>
+        <div class="cart-footer" id="cartFooter" hidden>
+          <span>Razem</span>
+          <span class="cart-total" id="cartFooterTotal">0,00 zł</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle"
+      type="button" aria-label="Otwórz menu"
+      aria-expanded="false" aria-controls="navLinks">☰</button>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" id="home">
+    <div class="hero-image">
+      <img
+        src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85"
+        alt="Minimalistyczna kompozycja kosmetyków do pielęgnacji"
+        width="1200" height="1500"
+        fetchpriority="high">
+    </div>
+
+    <div class="hero-copy">
+      <span class="eyebrow">CODZIENNY RYTUAŁ. NATURALNA HARMONIA.</span>
+      <h1>Piękno, które zaczyna się od <em>troski.</em></h1>
+      <p>
+        Odkryj spokojniejsze podejście do pielęgnacji.
+        Przemyślane formuły, minimalistyczne rytuały
+        i chwila tylko dla Ciebie.
+      </p>
+      <a class="button" href="#produkty">ODKRYJ KOLEKCJĘ &nbsp; →</a>
+    </div>
+  </section>
+
+  <div class="benefits" aria-label="Wartości marki">
+    <div class="benefit">
+      PRZEMYŚLANA PIELĘGNACJA
+      <span>Mniej kroków, więcej uważności</span>
+    </div>
+
+    <div class="benefit">
+      CODZIENNE RYTUAŁY
+      <span>Chwile dla siebie każdego dnia</span>
+    </div>
+
+    <div class="benefit">
+      MINIMALISTYCZNE PODEJŚCIE
+      <span>Prostota w każdym detalu</span>
+    </div>
   </div>
 
-  <header>
-    <nav class="nav" aria-label="Nawigacja główna">
-      <a class="logo" href="#home" aria-label="LUMÉA — strona główna">LUMÉA</a>
-
-      <div class="nav-links" id="navLinks">
-        <a href="#home">Strona główna</a>
-        <a href="#produkty">Produkty</a>
-        <a href="#rytual">Rytuał pielęgnacji</a>
-        <a href="#filozofia">Nasza filozofia</a>
+  <section class="content-section" id="produkty">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">POZNAJ LUMÉA</span>
+        <h2>Twoja skóra.<br><em>Twój rytuał.</em></h2>
       </div>
+      <p class="section-description">
+        Poznaj kolekcję inspirowaną prostotą.
+        Wybierz produkty, które pasują do Twojej codziennej rutyny.
+      </p>
+    </div>
 
-      <button class="cart-button" id="cartButton" type="button" aria-label="Koszyk jest pusty">
-        Koszyk (<span id="cartCount">0</span>)
-      </button>
+    <div class="filters" role="group" aria-label="Filtruj produkty">
+      <button class="filter active" type="button" data-filter="all" aria-pressed="true">Wszystkie</button>
+      <button class="filter" type="button" data-filter="oczyszczanie" aria-pressed="false">Oczyszczanie</button>
+      <button class="filter" type="button" data-filter="nawilzanie" aria-pressed="false">Nawilżanie</button>
+      <button class="filter" type="button" data-filter="serum" aria-pressed="false">Serum</button>
+    </div>
 
-      <button class="menu-toggle" id="menuToggle" type="button"
-        aria-label="Otwórz menu" aria-expanded="false" aria-controls="navLinks">
-        ☰
-      </button>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-copy">
-        <span class="eyebrow">Codzienny rytuał. Naturalna harmonia.</span>
-        <h1>Piękno, które zaczyna się od <em>troski.</em></h1>
-        <p>
-          Odkryj spokojniejsze podejście do pielęgnacji.
-          Przemyślane formuły, minimalistyczne rytuały
-          i chwila tylko dla Ciebie.
-        </p>
-        <a class="button" href="#produkty">Odkryj kolekcję&nbsp; →</a>
-      </div>
-
-      <div class="hero-image">
-        <img
-          src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85"
-          srcset="
-            https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80 600w,
-            https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85 1200w,
-            https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1800&q=85 1800w"
-          sizes="(max-width: 600px) 100vw, 50vw"
-          alt="Minimalistyczna kompozycja kosmetyków do pielęgnacji"
-          width="1200" height="1200"
-          fetchpriority="high" decoding="async">
-      </div>
-    </section>
-
-    <ul class="benefits" aria-label="Wartości marki">
-      <li class="benefitilters">Pr"zemyślana pielęgnacja<span> roleMniej kroków, więcej uważności</span></li>
-     =" <li class="benefit">Codgroupzienne rytuały<span>Chwile dla siebie każdego dnia</span></li>
-      <li class="benefit">Minimalistyczne podejście<span>Prostota w każdym detalu</span></li>
-    </ul>
-
-    <section class="content-section" id="produkty">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">Poznaj LUMÉA</span>
-          <h2>Twoja skóra.<br><em>Twój rytuał.</em></h2>
+    <div class="products">
+      <article class="product" data-category="oczyszczanie">
+        <div class="product-image">
+          <img
+            src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=85"
+            alt="Kosmetyki do codziennego oczyszczania"
+            width="800" height="1000"
+            loading="lazy">
+          <span class="product-tag">CODZIENNY RYTUAŁ</span>
         </div>
-        <p class="section-description">
-          Poznaj kolekcję inspirowaną prostotą.
-          Wybierz produkty, które pasują do Twojej codziennej rutyny.
-        </p>
-      </div>
-
-      <div class="f" aria-label="Filtruj produkty">
-        <button class="filter active" type="button" data-filter="all" aria-pressed="true">Wszystkie</button>
-        <button class="filter" type="button" data-filter="oczyszczanie" aria-pressed="false">Oczyszczanie</button>
-        <button class="filter" type="button" data-filter="nawilzanie" aria-pressed="false">Nawilżanie</button>
-        <button class="filter" type="button" data-filter="serum" aria-pressed="false">Serum</button>
-      </div>
-
-      <p class="form-message" id="filterMessage" aria-live="polite"></p>
-
-      <div class="products">
-        <article class="product" data-category="oczyszczanie">
-          <div class="product-image">
-            <img
-              src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=85"
-              srcset="
-                https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=400&q=80 400w,
-                https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=85 800w"
-              sizes="(max-width: 600px) 50vw, 33vw"
-              alt="Kosmetyki do codziennego oczyszczania"
-              width="800" height="1000"
-              loading="lazy" decoding="async">
-            <span class="product-tag">Codzienny rytuał</span>
+        <div class="product-info">
+          <span class="product-category">OCZYSZCZANIE</span>
+          <h3>Gentle Cleanser</h3>
+          <p class="product-description">Delikatny etap Twojej codziennej pielęgnacji.</p>
+          <div class="product-bottom">
+            <span class="price">59,00 zł</span>
+            <button class="add-button" type="button"
+              data-product="Gentle Cleanser" data-price="5900">
+              DODAJ DO KOSZYKA +
+            </button>
           </div>
-          <div class="product-info">
-            <span class="product-category">Oczyszczanie</span>
-            <h3>Gentle Cleanser</h3>
-            <p class="product-description">Delikatny etap Twojej codziennej pielęgnacji.</p>
-            <div class="product-bottom">
-              <span class="price">59,00 zł</span>
-              <button class="add-button" type="button"
-                data-product="Gentle Cleanser"
-                aria-label="Dodaj Gentle Cleanser do koszyka">Dodaj do koszyka +</button>
-            </div>
+        </div>
+      </article>
+
+      <article class="product" data-category="nawilzanie">
+        <div class="product-image">
+          <img
+            src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=85"
+            alt="Minimalistyczny kosmetyk do pielęgnacji skóry"
+            width="800" height="1000"
+            loading="lazy">
+          <span class="product-tag">CODZIENNA PIELĘGNACJA</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">NAWILŻANIE</span>
+          <h3>Hydra Cream</h3>
+          <p class="product-description">Krem jako element spokojnego rytuału pielęgnacyjnego.</p>
+          <div class="product-bottom">
+            <span class="price">89,00 zł</span>
+            <button class="add-button" type="button"
+              data-product="Hydra Cream" data-price="8900">
+              DODAJ DO KOSZYKA +
+            </button>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="product" data-category="nawilzanie">
-          <div class="product-image">
-            <img
-              src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=85"
-              srcset="
-                https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80 400w,
-                https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=85 800w"
-              sizes="(max-width: 600px) 50vw, 33vw"
-              alt="Minimalistyczny kosmetyk do pielęgnacji skóry"
-              width="800" height="1000"
-              loading="lazy" decoding="async">
-            <span class="product-tag">Codzienna pielęgnacja</span>
+      <article class="product" data-category="serum">
+        <div class="product-image">
+          <img
+            src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=85"
+            alt="Szklana buteleczka serum do twarzy w minimalistycznej aranżacji"
+            width="800" height="1000"
+            loading="lazy">
+          <span class="product-tag">CHWILA DLA SIEBIE</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">SERUM</span>
+          <h3>Daily Glow</h3>
+          <p class="product-description">Dodatkowy krok w Twojej indywidualnej rutynie.</p>
+          <div class="product-bottom">
+            <span class="price">79,00 zł</span>
+            <button class="add-button" type="button"
+              data-product="Daily Glow" data-price="7900">
+              DODAJ DO KOSZYKA +
+            </button>
           </div>
-          <div class="product-info">
-            <span class="product-category">Nawilżanie</span>
-            <h3>Hydra Cream</h3>
-            <p class="product-description">Krem jako element spokojnego rytuału pielęgnacyjnego.</p>
-            <div class="product-bottom">
-              <span class="price">89,00 zł</span>
-              <button class="add-button" type="button"
-                data-product="Hydra Cream"
-                aria-label="Dodaj Hydra Cream do koszyka">Dodaj do koszyka +</button>
-            </div>
-          </div>
-        </article>
+        </div>
+      </article>
+    </div>
+  </section>
 
-        <article class="product" data-category="serum">
-          <div class="product-image">
-            <img
-              src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=85"
-              srcset="
-                https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=400&q=80 400w,
-                https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=85 800w"
-              sizes="(max-width: 600px) 50vw, 33vw"
-              alt="Elegancka kompozycja kosmetyków i serum"
-              width="800" height="1000"
-              loading="lazy" decoding="async">
-            <span class="product-tag">Chwila dla siebie</span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Serum</span>
-            <h3>Daily Glow</h3>
-            <p class="product-description">Dodatkowy krok w Twojej indywidualnej rutynie.</p>
-            <div class="product-bottom">
-              <span class="price">79,00 zł</span>
-              <button class="add-button" type="button"
-                data-product="Daily Glow"
-                aria-label="Dodaj Daily Glow do koszyka">Dodaj do koszyka +</button>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="ritual" id="rytual">
-      <div class="ritual-image">
-        <img
-          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85"
-          srcset="
-            https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80 600w,
-            https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85 1200w"
-          sizes="(max-width: 600px) 100vw, 50vw"
-          alt="Spokojna przestrzeń sprzyjająca codziennemu relaksowi"
-          width="1200" height="800"
-          loading="lazy" decoding="async">
-      </div>
-      <div class="ritual-copy">
-        <span class="eyebrow">Znajdź swoją równowagę</span>
-        <h2>Małe kroki.<br><em>Więcej spokoju.</em></h2>
-        <p>
-          Pielęgnacja nie musi być skomplikowana.
-          Zacznij od kilku prostych kroków, znajdź własne tempo
-          i zamień codzienną rutynę w przyjemny moment dla siebie.
-        </p>
-        <a class="button button-outline" href="#produkty">Poznaj kolekcję&nbsp; →</a>
-      </div>
-    </section>
-
-    <section class="philosophy" id="filozofia">
-      <span class="eyebrow">Filozofia LUMÉA</span>
-      <h2>Mniej pośpiechu.<br>Więcej <em>uważności.</em></h2>
-      <p>
-        Wierzymy, że pielęgnacja może być prostym, codziennym
-        rytuałem. Stawiamy na przejrzystą estetykę, przemyślane
-        wybory i przestrzeń na to, co naprawdę ważne.
-      </p>
-    </section>
-
-    <section class="newsletter" id="newsletter">
-      <span class="eyebrow">Listy od LUMÉA</span>
-      <h2>Chwila tylko dla Ciebie.</h2>
-      <p>
-        Zostaw swój adres e-mail, aby dołączyć do naszej społeczności.
-      </p>
-      <form class="newsletter-form" id="newsletterForm">
-        <label for="emailInput" class="visually-hidden">Twój adres e-mail</label>
-        <input
-          type="email"
-          id="emailInput"
-          name="email"
-          placeholder="Twój adres e-mail"
-          autocomplete="email"
-          required>
-        <button type="submit">Dołącz</button>
-      </form>
-      <p class="form-message" id="formMessage" aria-live="polite"></p>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-main">
-      <div class="footer-brand">
-        <a class="logo" href="#home">LUMÉA</a>
-        <p>Pielęgnacja w harmonii.<br>Prostota na co dzień.</p>
-      </div>
-
-      <nav class="footer-links" aria-label="Nawigacja w stopce">
-        <a href="#produkty">Produkty</a>
-        <a href="#rytual">Rytuały</a>
-        <a href="#filozofia">O marce</a>
-        <a href="#home">Na górę ↑</a>
-      </nav>
+  <section class="ritual" id="rytual">
+    <div class="ritual-image">
+      <img
+        src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85"
+        alt="Spokojna przestrzeń sprzyjająca codziennemu relaksowi"
+        width="1200" height="920"
+        loading="lazy">
     </div>
 
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> LUMÉA. Wszelkie prawa zastrzeżone.</span>
-      <span>Stworzone z myślą o prostocie.</span>
+    <div class="ritual-copy">
+      <span class="eyebrow">ZNAJDŹ SWOJĄ RÓWNOWAGĘ</span>
+      <h2>Małe kroki.<br><em>Więcej spokoju.</em></h2>
+      <p>
+        Pielęgnacja nie musi być skomplikowana.
+        Zacznij od kilku prostych kroków, znajdź własne tempo
+        i zamień codzienną rutynę w przyjemny moment dla siebie.
+      </p>
+      <a class="button button-outline" href="#produkty">POZNAJ KOLEKCJĘ &nbsp; →</a>
     </div>
-  </footer>
+  </section>
 
-  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <section class="philosophy" id="filozofia">
+    <span class="eyebrow">FILOZOFIA LUMÉA</span>
+    <h2>Mniej pośpiechu.<br>Więcej <em>uważności.</em></h2>
+    <p>
+      Wierzymy, że pielęgnacja może być prostym, codziennym
+      rytuałem. Stawiamy na przejrzystą estetykę, przemyślane
+      wybory i przestrzeń na to, co naprawdę ważne.
+    </p>
+  </section>
 
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-    const cartButton = document.getElementById("cartButton");
-    const cartCount = document.getElementById("cartCount");
-    const toast = document.getElementById("toast");
-    const filterMessage = document.getElementById("filterMessage");
+  <section class="newsletter" id="newsletter">
+    <span class="eyebrow">LISTY OD LUMÉA</span>
+    <h2>Chwila tylko dla Ciebie.</h2>
+    <p>Zostaw swój adres e-mail, aby dołączyć do naszej społeczności.</p>
 
-    const cart = [];
-    let toastTimer;
+    <form class="newsletter-form" id="newsletterForm" novalidate>
+      <input
+        type="email"
+        id="emailInput"
+        placeholder="Twój adres e-mail"
+        aria-label="Twój adres e-mail"
+        autocomplete="email"
+        required>
+      <button type="submit">DOŁĄCZ</button>
+    </form>
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    <p class="form-message" id="formMessage" aria-live="polite"></p>
+  </section>
+</main>
 
-    /* ---------- Toast ---------- */
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2600);
-    }
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="logo" href="#home">LUMÉA</a>
+      <p>Pielęgnacja w harmonii.<br>Prostota na co dzień.</p>
+    </div>
 
-    /* ---------- Menu mobilne ---------- */
-    function closeMenu(options = {}) {
-      const { returnFocus = false } = options;
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Otwórz menu");
-      menuToggle.textContent = "☰";
-      if (returnFocus) menuToggle.focus();
-    }
+    <nav class="footer-links" aria-label="Nawigacja w stopce">
+      <a href="#produkty">PRODUKTY</a>
+      <a href="#rytual">RYTUAŁY</a>
+      <a href="#filozofia">O MARCE</a>
+      <a href="#home">NA GÓRĘ ↑</a>
+    </nav>
+  </div>
 
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Zamknij menu" : "Otwórz menu");
-      menuToggle.textContent = isOpen ? "×" : "☰";
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> LUMÉA. Wszelkie prawa zastrzeżone.</span>
+    <span>Stworzone z myślą o prostocie.</span>
+  </div>
+</footer>
 
-      if (isOpen) {
-        // фокус на первую ссылку
-        const firstLink = navLinks.querySelector("a");
-        if (firstLink) firstLink.focus();
-      }
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "lumea_cart_v1";
+
+  var menuToggle  = document.getElementById("menuToggle");
+  var navLinks    = document.getElementById("navLinks");
+  var cartWrap    = document.getElementById("cartWrap");
+  var cartButton  = document.getElementById("cartButton");
+  var cartPanel   = document.getElementById("cartPanel");
+  var cartList    = document.getElementById("cartList");
+  var cartFooter  = document.getElementById("cartFooter");
+  var cartCount   = document.getElementById("cartCount");
+  var cartTotalEl = document.getElementById("cartTotal");
+  var cartFooterTotal = document.getElementById("cartFooterTotal");
+  var toast       = document.getElementById("toast");
+
+  var cart = loadCart();
+  var toastTimer;
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------- utils ---------- */
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;",
+               '"': "&quot;", "'": "&#39;" }[ch];
     });
+  }
 
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => closeMenu());
-    });
+  function formatPrice(grosze) {
+    return (grosze / 100).toFixed(2).replace(".", ",") + " zł";
+  }
 
-    /* Esc закрывает меню и возвращает фокус на кнопку */
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && navLinks.classList.contains("open")) {
-        closeMenu({ returnFocus: true });
-      }
-    });
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.classList.remove("show");
+    }, 2800);
+  }
 
-    /* Клик вне меню */
-    document.addEventListener("click", event => {
-      if (!navLinks.classList.contains("open")) return;
-      if (navLinks.contains(event.target) || menuToggle.contains(event.target)) return;
-      closeMenu();
-    });
+  /* ---------- cart storage ---------- */
 
-    /* Сброс при переходе на десктоп */
-    const desktopQuery = window.matchMedia("(min-width: 601px)");
-    desktopQuery.addEventListener("change", event => {
-      if (event.matches) closeMenu();
-    });
-
-    /* ---------- Плюрализация по-польски ---------- */
-    function plural(n) {
-      if (n === 1) return "produkt";
-      if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return "produkty";
-      return "produktów";
-    }
-
-    /* ---------- Filtry ---------- */
-    document.querySelectorAll(".filter").forEach(button => {
-      button.addEventListener("click", () => {
-        const filter = button.dataset.filter;
-        let visibleCount = 0;
-
-        document.querySelectorAll(".filter").forEach(item => {
-          const active = item === button;
-          item.classList.toggle("active", active);
-          item.setAttribute("aria-pressed", String(active));
-        });
-
-        document.querySelectorAll(".product").forEach(product => {
-          const isVisible = filter === "all" || product.dataset.category === filter;
-          product.hidden = !isVisible;
-          if (isVisible) visibleCount += 1;
-        });
-
-        filterMessage.textContent = visibleCount === 0
-          ? "Brak produktów w tej kategorii."
-          : "Wyświetlono " + visibleCount + " " + plural(visibleCount) + ".";
+  function loadCart() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      var parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(function (item) {
+        return item &&
+          typeof item.name === "string" &&
+          typeof item.price === "number" &&
+          typeof item.qty === "number" && item.qty > 0;
       });
-    });
+    } catch (err) {
+      return [];
+    }
+  }
 
-    /* ---------- Koszyk ---------- */
-    function updateCartLabel() {
-      const count = cart.length;
-      cartCount.textContent = count;
-      cartButton.setAttribute(
-        "aria-label",
-        count === 0 ? "Koszyk jest pusty" : "Koszyk, produktów: " + count
+  function saveCart() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+    } catch (err) { /* quota / private mode — ignore */ }
+  }
+
+  function totalGrosze() {
+    return cart.reduce(function (sum, item) {
+      return sum + item.price * item.qty;
+    }, 0);
+  }
+
+  function totalQty() {
+    return cart.reduce(function (sum, item) { return sum + item.qty; }, 0);
+  }
+
+  /* ---------- cart rendering ---------- */
+
+  function renderCart() {
+    var qty = totalQty();
+    var total = totalGrosze();
+
+    cartCount.textContent = qty;
+    cartTotalEl.textContent = formatPrice(total);
+
+    if (cart.length === 0) {
+      cartList.innerHTML = '<li class="cart-empty">Koszyk jest pusty.</li>';
+      cartFooter.hidden = true;
+      return;
+    }
+
+    cartList.innerHTML = cart.map(function (item) {
+      var name = escapeHtml(item.name);
+      return (
+        '<li class="cart-item">' +
+          '<div>' +
+            '<div class="cart-item-name">' + name + '</div>' +
+            '<div class="cart-item-meta">' + item.qty + ' × ' +
+              formatPrice(item.price) + '</div>' +
+          '</div>' +
+          '<button class="cart-remove" type="button" ' +
+            'data-name="' + name + '" ' +
+            'aria-label="Usuń ' + name + ' z koszyka">×</button>' +
+        '</li>'
       );
-    }
+    }).join("");
 
-    document.querySelectorAll(".add-button").forEach(button => {
-      button.addEventListener("click", () => {
-        const name = button.dataset.product;
-        cart.push(name);
-        updateCartLabel();
-        showToast(name + " — dodano do koszyka.");
+    cartFooter.hidden = false;
+    cartFooterTotal.textContent = formatPrice(total);
+  }
+
+  function addToCart(name, price) {
+    var existing = cart.find(function (item) { return item.name === name; });
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name: name, price: price, qty: 1 });
+    }
+    saveCart();
+    renderCart();
+  }
+
+  function removeFromCart(name) {
+    var index = cart.findIndex(function (item) { return item.name === name; });
+    if (index === -1) return;
+    cart[index].qty -= 1;
+    if (cart[index].qty <= 0) cart.splice(index, 1);
+    saveCart();
+    renderCart();
+  }
+
+  /* ---------- cart panel open/close ---------- */
+
+  function openCart() {
+    cartPanel.hidden = false;
+    cartButton.setAttribute("aria-expanded", "true");
+  }
+
+  function closeCart(returnFocus) {
+    if (cartPanel.hidden) return;
+    cartPanel.hidden = true;
+    cartButton.setAttribute("aria-expanded", "false");
+    if (returnFocus) cartButton.focus();
+  }
+
+  cartButton.addEventListener("click", function (event) {
+    event.stopPropagation();
+    if (cartPanel.hidden) openCart();
+    else closeCart(false);
+  });
+
+  cartPanel.addEventListener("click", function (event) {
+    event.stopPropagation();
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!cartWrap.contains(event.target)) closeCart(false);
+  });
+
+  cartList.addEventListener("click", function (event) {
+    var btn = event.target.closest(".cart-remove");
+    if (!btn) return;
+    removeFromCart(btn.dataset.name);
+  });
+
+  /* ---------- mobile menu ---------- */
+
+  function closeMenu(returnFocus) {
+    if (!navLinks.classList.contains("open")) return;
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Otwórz menu");
+    menuToggle.textContent = "☰";
+    if (returnFocus) menuToggle.focus();
+  }
+
+  menuToggle.addEventListener("click", function () {
+    var open = navLinks.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
+    menuToggle.textContent = open ? "×" : "☰";
+  });
+
+  navLinks.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () { closeMenu(false); });
+  });
+
+  /* ---------- Escape ---------- */
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
+    closeCart(true);
+    closeMenu(true);
+  });
+
+  /* ---------- product filters ---------- */
+
+  document.querySelectorAll(".filter").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var filter = button.dataset.filter;
+
+      document.querySelectorAll(".filter").forEach(function (item) {
+        var active = item === button;
+        item.classList.toggle("active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+
+      document.querySelectorAll(".product").forEach(function (product) {
+        product.hidden =
+          filter !== "all" && product.dataset.category !== filter;
       });
     });
+  });
 
-    cartButton.addEventListener("click", () => {
-      if (cart.length === 0) {
-        showToast("Twój koszyk jest pusty.");
+  /* ---------- add to cart ---------- */
+
+  document.querySelectorAll(".add-button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var name = button.dataset.product;
+      var price = parseInt(button.dataset.price, 10) || 0;
+      addToCart(name, price);
+      showToast(name + " — dodano do koszyka.");
+    });
+  });
+
+  /* ---------- newsletter ---------- */
+
+  document.getElementById("newsletterForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var email = document.getElementById("emailInput");
+      var message = document.getElementById("formMessage");
+
+      if (!email.checkValidity()) {
+        email.reportValidity();
         return;
       }
 
-      const summary = cart.reduce((result, name) => {
-        result[name] = (result[name] || 0) + 1;
-        return result;
-      }, {});
-
-      const lines = Object.entries(summary).map(([name, quantity]) => {
-        return name + " × " + quantity;
-      });
-
-      showToast("Twój koszyk: " + lines.join(", "));
+      message.textContent =
+        "Dziękujemy! Formularz demonstracyjny — zapisy nie są jeszcze aktywne.";
+      email.value = "";
+      email.blur();
     });
 
-    updateCartLabel();
+  /* ---------- boot ---------- */
 
-    /* ---------- Newsletter ---------- */
-    document.getElementById("newsletterForm").addEventListener("submit", event => {
-      event.preventDefault();
+  renderCart();
+})();
+</script>
 
-      // Браузер сам не даст отправить невалидную форму,
-      // поэтому checkValidity() здесь избыточен.
-      const message = document.getElementById("formMessage");
-      message.textContent = "Formularz demonstracyjny — zapisy nie są jeszcze aktywne.";
-      event.target.reset();
-    });
-  </script>
 </body>
 </html>
