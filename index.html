@@ -1,470 +1,1126 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f8f6f0">
-<meta name="description" content="LUMÉA — minimalistyczna pielęgnacja skóry. Odkryj swoją codzienną rutynę.">
-<title>LUMÉA — Skin, Naturally</title>
-<style>
-:root {
-  --bg:#f8f6f0;
-  --paper:#fffefa;
-  --ink:#292c23;
-  --muted:#77796e;
-  --green:#68745a;
-  --green-dark:#48533e;
-  --line:#e5e3d9;
-  --serif:Georgia,"Times New Roman",serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif}
-button,a{font:inherit}
-a{color:inherit;text-decoration:none}
-button{cursor:pointer}
-.announcement{background:var(--green-dark);color:white;text-align:center;
-  padding:10px 12px;font-size:11px;letter-spacing:1.3px}
-header{background:var(--bg);position:sticky;top:0;z-index:10;
-  border-bottom:1px solid var(--line)}
-.nav{max-width:1240px;margin:auto;min-height:76px;padding:0 5%;
-  display:flex;align-items:center;justify-content:space-between;gap:18px}
-.logo{font-family:var(--serif);font-size:30px;letter-spacing:5px}
-.logo small{display:block;font-family:Arial,sans-serif;font-size:8px;
-  letter-spacing:4px;text-align:center;margin-top:2px}
-.navlinks{display:flex;gap:27px;font-size:12px}
-.navlinks a:hover{color:var(--green)}
-.navright{display:flex;align-items:center;gap:12px}
-.lang{border:0;background:transparent;color:var(--ink);font-size:11px}
-.cart{border:1px solid var(--ink);background:transparent;padding:11px 14px;
-  font-size:11px;white-space:nowrap}
-.cart:hover{background:var(--ink);color:white}
-.hero{max-width:1440px;margin:auto;padding:28px 4% 55px}
-.hero-inner{display:grid;grid-template-columns:1fr 1fr;min-height:490px;
-  background:#e8e8dc}
-.hero-copy{padding:clamp(28px,6vw,76px);display:flex;flex-direction:column;
-  justify-content:center;align-items:flex-start}
-.eyebrow{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--green);font-weight:bold}
-h1{font-family:var(--serif);font-size:clamp(44px,6vw,76px);
-  font-weight:400;line-height:1.02;letter-spacing:-2px;margin:22px 0}
-h1 em{font-weight:400;color:var(--green)}
-.hero-copy p{font-size:14px;color:#65675d;line-height:1.9;max-width:360px}
-.btn{display:inline-block;background:var(--green-dark);color:white;
-  border:1px solid var(--green-dark);padding:15px 23px;margin-top:22px;
-  font-size:11px;letter-spacing:1px;text-transform:uppercase}
-.btn:hover{background:var(--ink)}
-.hero-image{min-height:400px;position:relative;overflow:hidden}
-.hero-image img{width:100%;height:100%;position:absolute;inset:0;
-  object-fit:cover;object-position:center}
-.hero-note{position:absolute;bottom:20px;left:20px;background:#fffefaeb;
-  padding:13px 17px;font-family:var(--serif);font-size:16px}
-.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
-  padding:27px 5%;border-bottom:1px solid var(--line);
-  border-top:1px solid var(--line);text-align:center}
-.benefits div{font-size:11px;letter-spacing:.5px}
-.benefits span{display:block;color:var(--muted);font-size:10px;
-  margin-top:7px;letter-spacing:0}
-.section{max-width:1240px;margin:auto;padding:76px 5%}
-.section-head{display:flex;justify-content:space-between;align-items:end;
-  gap:20px;margin-bottom:30px}
-h2{font-family:var(--serif);font-size:clamp(34px,4vw,48px);
-  font-weight:400;letter-spacing:-1px;margin:12px 0}
-.section-head p{font-size:12px;color:var(--muted);line-height:1.7;
-  max-width:300px;margin:0 0 5px}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px}
-.filter{border:1px solid var(--line);background:transparent;padding:10px 15px;
-  font-size:11px;color:var(--muted)}
-.filter.active,.filter:hover{background:var(--green-dark);color:white;
-  border-color:var(--green-dark)}
-.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
-.product{min-width:0}
-.product-photo{position:relative;background:#eeece4;aspect-ratio:4/5;
-  overflow:hidden}
-.product-photo img{width:100%;height:100%;object-fit:cover;
-  transition:transform .5s}
-.product:hover .product-photo img{transform:scale(1.04)}
-.tag{position:absolute;top:12px;left:12px;background:var(--paper);
-  padding:7px 9px;font-size:9px;letter-spacing:.5px}
-.quick-add{position:absolute;bottom:10px;left:10px;right:10px;width:calc(100% - 20px);
-  border:0;background:#fffef2ed;color:var(--ink);padding:13px 5px;
-  font-size:10px;letter-spacing:1px;text-transform:uppercase}
-.quick-add:hover{background:var(--green-dark);color:white}
-.product-info{padding:15px 1px}
-.product-type{color:var(--muted);font-size:9px;letter-spacing:1.2px;
-  text-transform:uppercase}
-.product-title{font-family:var(--serif);font-size:18px;margin:7px 0}
-.product-desc{color:var(--muted);font-size:11px;line-height:1.6;
-  min-height:35px}
-.price-row{display:flex;justify-content:space-between;align-items:center;
-  gap:8px;margin-top:12px;font-size:13px}
-.stars{font-size:10px;color:var(--green)}
-.story{display:grid;grid-template-columns:1fr 1fr;background:#e9e8dd}
-.story-image{min-height:400px}
-.story-image img{width:100%;height:100%;object-fit:cover;display:block}
-.story-copy{padding:clamp(30px,6vw,75px);display:flex;flex-direction:column;
-  align-items:flex-start;justify-content:center}
-.story-copy p{font-size:13px;line-height:1.9;color:#66685e;max-width:390px}
-.quote{font-family:var(--serif);font-size:22px;line-height:1.5;
-  margin-top:18px;color:var(--green-dark)}
-.newsletter{text-align:center;background:#e9e8dd;padding:65px 20px}
-.newsletter p{color:var(--muted);font-size:12px;line-height:1.8}
-.newsletter-form{display:flex;max-width:420px;margin:25px auto 0}
-.newsletter-form input{min-width:0;flex:1;border:1px solid #d4d4c8;
-  background:#fffefa;padding:14px;font-size:12px}
-.newsletter-form button{border:0;background:var(--green-dark);color:white;
-  padding:0 17px;font-size:10px;letter-spacing:1px}
-#newsletter-message{min-height:18px;font-size:11px}
-footer{padding:35px 5%;background:#30362b;color:#f8f6f0}
-.footer-inner{max-width:1240px;margin:auto;display:flex;justify-content:space-between;
-  align-items:center;gap:25px;flex-wrap:wrap}
-footer .logo{font-size:25px}
-footer p{font-size:10px;color:#c7c9bd;line-height:1.8}
-.footer-links{display:flex;gap:18px;font-size:11px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-  background:var(--green-dark);color:white;padding:14px 20px;font-size:12px;
-  z-index:30;box-shadow:0 5px 20px #0002;display:none;max-width:90vw;
-  text-align:center}
-.toast.show{display:block}
-.cart-panel{position:fixed;inset:0;background:#0006;z-index:25;
-  display:none;justify-content:flex-end}
-.cart-panel.open{display:flex}
-.cart-content{background:var(--paper);width:min(420px,100%);height:100%;
-  padding:25px;overflow:auto}
-.cart-head{display:flex;justify-content:space-between;align-items:center;
-  border-bottom:1px solid var(--line);padding-bottom:18px}
-.cart-head h3{font-family:var(--serif);font-weight:400;font-size:27px;margin:0}
-.close-cart{border:0;background:transparent;font-size:25px}
-.cart-items{padding:15px 0}
-.cart-item{display:flex;justify-content:space-between;gap:12px;
-  padding:14px 0;border-bottom:1px solid var(--line);font-size:12px}
-.cart-item small{display:block;color:var(--muted);margin-top:6px}
-.remove{border:0;background:transparent;color:var(--muted);font-size:11px}
-.cart-total{display:flex;justify-content:space-between;padding:18px 0;
-  border-top:1px solid var(--line);font-size:14px}
-.checkout{width:100%;padding:15px;border:0;background:var(--green-dark);
-  color:white;font-size:11px;letter-spacing:1px}
-.cart-note{font-size:10px;line-height:1.7;color:var(--muted)}
-@media(max-width:850px){
-  .navlinks{gap:13px}
-  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 13px}
-  .hero-inner{min-height:410px}
-  .hero-copy{padding:28px}
-  .story-image{min-height:350px}
-}
-@media(max-width:600px){
-  .announcement{font-size:9px;letter-spacing:.7px}
-  .nav{min-height:67px;padding:0 4%;gap:8px}
-  .logo{font-size:24px;letter-spacing:3px}
-  .logo small{font-size:7px;letter-spacing:2.5px}
-  .navlinks{display:none}
-  .navright{gap:6px}
-  .lang{font-size:10px}
-  .cart{padding:10px;font-size:10px}
-  .hero{padding:14px 4% 30px}
-  .hero-inner{grid-template-columns:1fr}
-  .hero-copy{padding:38px 25px}
-  h1{font-size:52px;margin:17px 0}
-  .hero-copy p{font-size:13px}
-  .hero-image{min-height:300px}
-  .benefits{gap:8px;padding:20px 3%}
-  .benefits div{font-size:9px}
-  .benefits span{font-size:9px;line-height:1.5}
-  .section{padding:52px 4%}
-  .section-head{display:block}
-  .section-head p{margin-top:10px}
-  .products{gap:19px 11px}
-  .product-title{font-size:17px}
-  .product-desc{font-size:10px}
-  .tag{font-size:8px;top:8px;left:8px}
-  .quick-add{left:6px;right:6px;bottom:6px;width:calc(100% - 12px);
-    padding:12px 2px;font-size:9px}
-  .story{grid-template-columns:1fr}
-  .story-image{min-height:290px}
-  .story-copy{padding:35px 25px}
-  .newsletter{padding:48px 18px}
-  .footer-inner{align-items:flex-start;flex-direction:column}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="LUMÉA — minimalistyczna pielęgnacja skóry. Odkryj kosmetyki stworzone z myślą o codziennych rytuałach.">
+  <title>LUMÉA — Pielęgnacja w harmonii</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:title" content="LUMÉA — Pielęgnacja w harmonii">
+  <meta property="og:description" content="Minimalistyczna pielęgnacja skóry. Mniej, ale świadomiej.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85">
+
+  <style>
+    :root {
+      --bg: #f8f6f0;
+      --paper: #fffefa;
+      --ink: #292a24;
+      --muted: #6a6a5f;
+      --line: #e4e0d5;
+      --olive: #62694b;
+      --dark: #30372a;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body, button, a { -webkit-tap-highlight-color: transparent; }
+
+    a { color: inherit; text-decoration: none; }
+
+    button { font: inherit; }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ---- Видимый фокус ---- */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--olive);
+      outline-offset: 3px;
+    }
+
+    /* ---- Skip link ---- */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 12px;
+      z-index: 100;
+      padding: 12px 18px;
+      background: var(--dark);
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: top .2s;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    /* ---- Скрытая метка ---- */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .announcement {
+      padding: 10px 16px;
+      background: var(--dark);
+      color: #fff;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(248, 246, 240, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      max-width: 1400px;
+      height: 76px;
+      padding: 0 6%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-size: 32px;
+      letter-spacing: 5px;
+      font-weight: normal;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a, .cart-button {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover { color: var(--olive); }
+
+    .cart-button {
+      border: 1px solid var(--line);
+      background: transparent;
+      padding: 12px 15px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: none;
+      font-size: 25px;
+      cursor: pointer;
+      padding: 8px;
+      line-height: 1;
+    }
+
+    .hero {
+      max-width: 1600px;
+      min-height: 590px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-copy {
+      padding: 90px 9% 80px 13%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .eyebrow {
+      color: var(--olive);
+      font-size: 10px;
+      font-weight: normal;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin: 28px 0 24px;
+      font-family: var(--serif);
+      font-size: clamp(48px, 5.6vw, 78px);
+      line-height: 1.04;
+      font-weight: normal;
+      letter-spacing: -2px;
+    }
+
+    h1 em, h2 em {
+      color: var(--olive);
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    .hero-copy > p {
+      max-width: 370px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 49px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 25px;
+      background: var(--dark);
+      color: white;
+      border: 1px solid var(--dark);
+      font-size: 10px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .button:hover {
+      background: transparent;
+      color: var(--dark);
+    }
+
+    .button-outline {
+      background: transparent;
+      color: var(--dark);
+    }
+
+    .button-outline:hover {
+      background: var(--dark);
+      color: white;
+    }
+
+    .hero-image {
+      min-height: 590px;
+      overflow: hidden;
+      background: #e7dfd0;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 25px 6%;
+      gap: 20px;
+      margin: 0;
+      list-style: none;
+    }
+
+    .benefit {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .benefit span {
+      display: block;
+      color: var(--muted);
+      margin-top: 7px;
+      font-size: 11px;
+      letter-spacing: .2px;
+      text-transform: none;
+    }
+
+    section.content-section {
+      max-width: 1400px;
+      padding: 100px 6%;
+      margin: auto;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 25px;
+      margin-bottom: 38px;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 53px);
+      font-weight: normal;
+      letter-spacing: -1px;
+      line-height: 1.12;
+      margin: 14px 0 0;
+    }
+
+    .section-description {
+      max-width: 320px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      margin-bottom: 4px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filter {
+      padding: 11px 17px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font-size: 10px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    .filter.active, .filter:hover {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .product { min-width: 0; }
+
+    .product-image {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      background: #eee9df;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      transition: transform .6s ease;
+    }
+
+    .product:hover .product-image img {
+      transform: scale(1.045);
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 8px 10px;
+      background: var(--paper);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .product-info { padding: 18px 2px 0; }
+
+    .product-category {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+
+    .product h3 {
+      margin: 10px 0;
+      font-family: var(--serif);
+      font-size: 23px;
+      font-weight: normal;
+    }
+
+    .product-description {
+      min-height: 35px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .price { font-size: 13px; }
+
+    .add-button {
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .add-button:hover {
+      background: var(--dark);
+      color: white;
+    }
+
+    .ritual {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #eae6dc;
+    }
+
+    .ritual-image {
+      min-height: 470px;
+      background: #ded6c7;
+    }
+
+    .ritual-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 70px 12%;
+    }
+
+    .ritual-copy p {
+      max-width: 400px;
+      margin: 22px 0 28px;
+      color: #5c5d52;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .philosophy {
+      max-width: 1000px;
+      margin: auto;
+      padding: 115px 7%;
+      text-align: center;
+    }
+
+    .philosophy h2 {
+      max-width: 740px;
+      margin: 22px auto;
+      font-size: clamp(38px, 5vw, 62px);
+    }
+
+    .philosophy p {
+      max-width: 560px;
+      margin: 25px auto 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .newsletter {
+      padding: 75px 6%;
+      background: #e9e5da;
+      text-align: center;
+    }
+
+    .newsletter h2 { font-size: 43px; }
+
+    .newsletter p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      margin: 17px 0 25px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 440px;
+      margin: auto;
+      gap: 8px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid #d4d0c4;
+      background: var(--paper);
+      border-radius: 0;
+      font-size: 12px;
+    }
+
+    .newsletter-form button {
+      padding: 0 18px;
+      border: 0;
+      background: var(--dark);
+      color: white;
+      font-size: 10px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    .form-message {
+      min-height: 18px;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 45px 6% 25px;
+      background: var(--dark);
+      color: #f8f6f0;
+    }
+
+    .footer-main {
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .footer-brand .logo { font-size: 29px; }
+
+    .footer-brand p {
+      margin-top: 15px;
+      color: #c0c2b5;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 23px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-links a:hover { color: #c7cbb3; }
+
+    .footer-bottom {
+      max-width: 1300px;
+      margin: 40px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #555a4b;
+      color: #c0c2b5;
+      font-size: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 50;
+      left: 50%;
+      bottom: calc(25px + env(safe-area-inset-bottom, 0px));
+      transform: translate(-50%, 20px);
+      padding: 15px 22px;
+      max-width: calc(100% - 32px);
+      background: var(--dark);
+      color: white;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    [hidden] { display: none !important; }
+
+    @media (min-width: 1500px) {
+      .hero-copy { padding-left: 15%; }
+    }
+
+    @media (max-width: 850px) {
+      .nav { padding: 0 5%; height: 68px; }
+      .logo { font-size: 27px; }
+      .nav-links { gap: 15px; }
+      .nav-links a { font-size: 9px; }
+      .hero { min-height: 480px; }
+      .hero-copy { padding: 55px 8%; }
+      .hero-image { min-height: 480px; }
+      .products { gap: 15px; }
+      .product h3 { font-size: 20px; }
+      .product-bottom { align-items: flex-start; flex-direction: column; }
+      section.content-section { padding: 75px 5%; }
+    }
+
+    @media (max-width: 600px) {
+      .announcement {
+        font-size: 8px;
+        letter-spacing: 1px;
+      }
+
+      .nav { height: 65px; }
+      .logo { font-size: 25px; letter-spacing: 4px; }
+
+      .menu-toggle { display: block; order: 3; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        right: 0;
+        padding: 24px 5%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 11px;
+      }
+
+      .nav-links a:last-child { border-bottom: 0; }
+
+      .cart-button {
+        padding: 10px;
+        font-size: 9px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding: 65px 7% 55px;
+        order: 2;
+      }
+
+      .hero-image {
+        min-height: 0;
+        height: 390px;
+        order: 1;
+      }
+
+      h1 {
+        font-size: clamp(49px, 13vw, 68px);
+        margin-top: 20px;
+      }
+
+      .hero-copy > p { font-size: 13px; }
+
+      /* Преимущества: 1 колонка, крупнее шрифт */
+      .benefits {
+        grid-template-columns: 1fr;
+        padding: 25px 6%;
+        gap: 18px;
+      }
+
+      .benefit {
+        font-size: 10px;
+        letter-spacing: 1px;
+        line-height: 1.6;
+      }
+
+      .benefit span { font-size: 11px; }
+
+      section.content-section { padding: 70px 5%; }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      h2 { font-size: 40px; }
+
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
+
+      .product h3 { font-size: 19px; }
+      .product-description { font-size: 10px; }
+      .product-tag { top: 8px; left: 8px; font-size: 8px; padding: 7px; }
+
+      .product-bottom { gap: 12px; }
+      .add-button { width: 100%; padding: 12px 5px; }
+
+      .ritual { grid-template-columns: 1fr; }
+
+      .ritual-image { min-height: 0; height: 340px; }
+
+      .ritual-copy { padding: 55px 7%; }
+
+      .philosophy { padding: 80px 7%; }
+      .philosophy h2 { font-size: 43px; }
+
+      .newsletter { padding: 65px 5%; }
+      .newsletter h2 { font-size: 37px; }
+
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input, .newsletter-form button { min-height: 48px; }
+
+      footer { padding: 40px 6% 22px; }
+      .footer-main { flex-direction: column; }
+      .footer-links { gap: 17px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="announcement" data-i18n="announcement">
-  BEZPŁATNA DOSTAWA OD 199 ZŁ · RYTUAŁ PIĘKNA ZACZYNA SIĘ TUTAJ
-</div>
+  <a class="skip-link" href="#produkty">Przejdź do produktów</a>
 
-<header>
-  <nav class="nav">
-    <a class="logo" href="#" aria-label="LUMÉA home">LUMÉA<small>SKIN, NATURALLY</small></a>
-    <div class="navlinks">
-      <a href="#shop" data-i18n="navShop">Sklep</a>
-      <a href="#story" data-i18n="navStory">Nasza filozofia</a>
-      <a href="#newsletter" data-i18n="navContact">Kontakt</a>
-    </div>
-    <div class="navright">
-      <select class="lang" id="language" aria-label="Language">
-        <option value="pl">PL</option>
-        <option value="en">EN</option>
-        <option value="ru">RU</option>
-      </select>
-      <button class="cart" id="open-cart">TORBA (<span id="cart-count">0</span>)</button>
-    </div>
-  </nav>
-</header>
-
-<main>
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <div class="eyebrow" data-i18n="heroEyebrow">Mniej, ale lepiej</div>
-      <h1 data-i18n="heroTitle">Twoja skóra.<br><em>Twój rytuał.</em></h1>
-      <p data-i18n="heroText">Poznaj świadomą pielęgnację stworzoną z myślą o codziennych chwilach dla siebie.</p>
-      <a class="btn" href="#shop" data-i18n="heroButton">Odkryj kolekcję ↗</a>
-    </div>
-    <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1000&q=85" alt="Minimalistyczna pielęgnacja skóry">
-      <div class="hero-note" data-i18n="heroNote">Chwila tylko dla Ciebie.</div>
-    </div>
+  <div class="announcement">
+    LUMÉA — mniej, ale świadomiej
   </div>
-</section>
 
-<div class="benefits">
-  <div>✳ <span data-i18n="benefit1">Starannie dobrane składniki</span></div>
-  <div>♧ <span data-i18n="benefit2">Prosta codzienna rutyna</span></div>
-  <div>♡ <span data-i18n="benefit3">Piękno bez pośpiechu</span></div>
-</div>
+  <header>
+    <nav class="nav" aria-label="Nawigacja główna">
+      <a class="logo" href="#home" aria-label="LUMÉA — strona główna">LUMÉA</a>
 
-<section class="section" id="shop">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow" data-i18n="shopEyebrow">Twoje nowe ulubione</div>
-      <h2 data-i18n="shopTitle">Rytuały pielęgnacji</h2>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Strona główna</a>
+        <a href="#produkty">Produkty</a>
+        <a href="#rytual">Rytuał pielęgnacji</a>
+        <a href="#filozofia">Nasza filozofia</a>
+      </div>
+
+      <button class="cart-button" id="cartButton" type="button" aria-label="Koszyk jest pusty">
+        Koszyk (<span id="cartCount">0</span>)
+      </button>
+
+      <button class="menu-toggle" id="menuToggle" type="button"
+        aria-label="Otwórz menu" aria-expanded="false" aria-controls="navLinks">
+        ☰
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">Codzienny rytuał. Naturalna harmonia.</span>
+        <h1>Piękno, które zaczyna się od <em>troski.</em></h1>
+        <p>
+          Odkryj spokojniejsze podejście do pielęgnacji.
+          Przemyślane formuły, minimalistyczne rytuały
+          i chwila tylko dla Ciebie.
+        </p>
+        <a class="button" href="#produkty">Odkryj kolekcję&nbsp; →</a>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85"
+          srcset="
+            https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80 600w,
+            https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85 1200w,
+            https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1800&q=85 1800w"
+          sizes="(max-width: 600px) 100vw, 50vw"
+          alt="Minimalistyczna kompozycja kosmetyków do pielęgnacji"
+          width="1200" height="1200"
+          fetchpriority="high" decoding="async">
+      </div>
+    </section>
+
+    <ul class="benefits" aria-label="Wartości marki">
+      <li class="benefitilters">Pr"zemyślana pielęgnacja<span> roleMniej kroków, więcej uważności</span></li>
+     =" <li class="benefit">Codgroupzienne rytuały<span>Chwile dla siebie każdego dnia</span></li>
+      <li class="benefit">Minimalistyczne podejście<span>Prostota w każdym detalu</span></li>
+    </ul>
+
+    <section class="content-section" id="produkty">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Poznaj LUMÉA</span>
+          <h2>Twoja skóra.<br><em>Twój rytuał.</em></h2>
+        </div>
+        <p class="section-description">
+          Poznaj kolekcję inspirowaną prostotą.
+          Wybierz produkty, które pasują do Twojej codziennej rutyny.
+        </p>
+      </div>
+
+      <div class="f" aria-label="Filtruj produkty">
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">Wszystkie</button>
+        <button class="filter" type="button" data-filter="oczyszczanie" aria-pressed="false">Oczyszczanie</button>
+        <button class="filter" type="button" data-filter="nawilzanie" aria-pressed="false">Nawilżanie</button>
+        <button class="filter" type="button" data-filter="serum" aria-pressed="false">Serum</button>
+      </div>
+
+      <p class="form-message" id="filterMessage" aria-live="polite"></p>
+
+      <div class="products">
+        <article class="product" data-category="oczyszczanie">
+          <div class="product-image">
+            <img
+              src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=85"
+              srcset="
+                https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=400&q=80 400w,
+                https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=85 800w"
+              sizes="(max-width: 600px) 50vw, 33vw"
+              alt="Kosmetyki do codziennego oczyszczania"
+              width="800" height="1000"
+              loading="lazy" decoding="async">
+            <span class="product-tag">Codzienny rytuał</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category">Oczyszczanie</span>
+            <h3>Gentle Cleanser</h3>
+            <p class="product-description">Delikatny etap Twojej codziennej pielęgnacji.</p>
+            <div class="product-bottom">
+              <span class="price">59,00 zł</span>
+              <button class="add-button" type="button"
+                data-product="Gentle Cleanser"
+                aria-label="Dodaj Gentle Cleanser do koszyka">Dodaj do koszyka +</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-category="nawilzanie">
+          <div class="product-image">
+            <img
+              src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=85"
+              srcset="
+                https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80 400w,
+                https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=85 800w"
+              sizes="(max-width: 600px) 50vw, 33vw"
+              alt="Minimalistyczny kosmetyk do pielęgnacji skóry"
+              width="800" height="1000"
+              loading="lazy" decoding="async">
+            <span class="product-tag">Codzienna pielęgnacja</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category">Nawilżanie</span>
+            <h3>Hydra Cream</h3>
+            <p class="product-description">Krem jako element spokojnego rytuału pielęgnacyjnego.</p>
+            <div class="product-bottom">
+              <span class="price">89,00 zł</span>
+              <button class="add-button" type="button"
+                data-product="Hydra Cream"
+                aria-label="Dodaj Hydra Cream do koszyka">Dodaj do koszyka +</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-category="serum">
+          <div class="product-image">
+            <img
+              src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=85"
+              srcset="
+                https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=400&q=80 400w,
+                https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=85 800w"
+              sizes="(max-width: 600px) 50vw, 33vw"
+              alt="Elegancka kompozycja kosmetyków i serum"
+              width="800" height="1000"
+              loading="lazy" decoding="async">
+            <span class="product-tag">Chwila dla siebie</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category">Serum</span>
+            <h3>Daily Glow</h3>
+            <p class="product-description">Dodatkowy krok w Twojej indywidualnej rutynie.</p>
+            <div class="product-bottom">
+              <span class="price">79,00 zł</span>
+              <button class="add-button" type="button"
+                data-product="Daily Glow"
+                aria-label="Dodaj Daily Glow do koszyka">Dodaj do koszyka +</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ritual" id="rytual">
+      <div class="ritual-image">
+        <img
+          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85"
+          srcset="
+            https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80 600w,
+            https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85 1200w"
+          sizes="(max-width: 600px) 100vw, 50vw"
+          alt="Spokojna przestrzeń sprzyjająca codziennemu relaksowi"
+          width="1200" height="800"
+          loading="lazy" decoding="async">
+      </div>
+      <div class="ritual-copy">
+        <span class="eyebrow">Znajdź swoją równowagę</span>
+        <h2>Małe kroki.<br><em>Więcej spokoju.</em></h2>
+        <p>
+          Pielęgnacja nie musi być skomplikowana.
+          Zacznij od kilku prostych kroków, znajdź własne tempo
+          i zamień codzienną rutynę w przyjemny moment dla siebie.
+        </p>
+        <a class="button button-outline" href="#produkty">Poznaj kolekcję&nbsp; →</a>
+      </div>
+    </section>
+
+    <section class="philosophy" id="filozofia">
+      <span class="eyebrow">Filozofia LUMÉA</span>
+      <h2>Mniej pośpiechu.<br>Więcej <em>uważności.</em></h2>
+      <p>
+        Wierzymy, że pielęgnacja może być prostym, codziennym
+        rytuałem. Stawiamy na przejrzystą estetykę, przemyślane
+        wybory i przestrzeń na to, co naprawdę ważne.
+      </p>
+    </section>
+
+    <section class="newsletter" id="newsletter">
+      <span class="eyebrow">Listy od LUMÉA</span>
+      <h2>Chwila tylko dla Ciebie.</h2>
+      <p>
+        Zostaw swój adres e-mail, aby dołączyć do naszej społeczności.
+      </p>
+      <form class="newsletter-form" id="newsletterForm">
+        <label for="emailInput" class="visually-hidden">Twój adres e-mail</label>
+        <input
+          type="email"
+          id="emailInput"
+          name="email"
+          placeholder="Twój adres e-mail"
+          autocomplete="email"
+          required>
+        <button type="submit">Dołącz</button>
+      </form>
+      <p class="form-message" id="formMessage" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="logo" href="#home">LUMÉA</a>
+        <p>Pielęgnacja w harmonii.<br>Prostota na co dzień.</p>
+      </div>
+
+      <nav class="footer-links" aria-label="Nawigacja w stopce">
+        <a href="#produkty">Produkty</a>
+        <a href="#rytual">Rytuały</a>
+        <a href="#filozofia">O marce</a>
+        <a href="#home">Na górę ↑</a>
+      </nav>
     </div>
-    <p data-i18n="shopText">Niewiele kroków. Przyjemne tekstury. Chwile, które należą do Ciebie.</p>
-  </div>
-  <div class="filters">
-    <button class="filter active" data-filter="all" data-i18n="filterAll">Wszystko</button>
-    <button class="filter" data-filter="face" data-i18n="filterFace">Twarz</button>
-    <button class="filter" data-filter="body" data-i18n="filterBody">Ciało</button>
-    <button class="filter" data-filter="sets" data-i18n="filterSets">Zestawy</button>
-  </div>
-  <div class="products" id="products"></div>
-</section>
 
-<section class="section" id="story">
-  <div class="story">
-    <div class="story-image">
-      <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=1000&q=85" alt="Kosmetyki i składniki pielęgnacyjne">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> LUMÉA. Wszelkie prawa zastrzeżone.</span>
+      <span>Stworzone z myślą o prostocie.</span>
     </div>
-    <div class="story-copy">
-      <div class="eyebrow" data-i18n="storyEyebrow">Filozofia LUMÉA</div>
-      <h2 data-i18n="storyTitle">Piękno w prostocie.</h2>
-      <p data-i18n="storyText">Wierzymy, że pielęgnacja nie musi być skomplikowana. To kilka świadomych wyborów, delikatne tekstury i codzienny moment, w którym możesz zwolnić.</p>
-      <div class="quote" data-i18n="storyQuote">„Zadbaj o siebie tak, jak dbasz o wszystko, co kochasz”.</div>
-      <a class="btn" href="#shop" data-i18n="storyButton">Poznaj nasze produkty ↗</a>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<section class="newsletter" id="newsletter">
-  <div class="eyebrow" data-i18n="newsEyebrow">Listy pełne inspiracji</div>
-  <h2 data-i18n="newsTitle">Trochę piękna w Twojej skrzynce.</h2>
-  <p data-i18n="newsText">Dołącz do naszego świata pielęgnacji i odkrywaj nowe rytuały.</p>
-  <form class="newsletter-form" id="newsletter-form">
-    <input type="email" id="email" required placeholder="Twój adres e-mail" aria-label="Email">
-    <button type="submit" data-i18n="newsButton">DOŁĄCZ</button>
-  </form>
-  <p id="newsletter-message" aria-live="polite"></p>
-</section>
-</main>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="logo">LUMÉA</div>
-      <p data-i18n="footerText">Świadoma pielęgnacja. Codzienne małe rytuały.<br>Projekt demonstracyjny do portfolio.</p>
-    </div>
-    <div class="footer-links">
-      <a href="#shop" data-i18n="navShop">Sklep</a>
-      <a href="#story" data-i18n="navStory">Nasza filozofia</a>
-      <a href="#newsletter" data-i18n="navContact">Kontakt</a>
-    </div>
-    <p>© <span id="year"></span> LUMÉA</p>
-  </div>
-</footer>
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const cartButton = document.getElementById("cartButton");
+    const cartCount = document.getElementById("cartCount");
+    const toast = document.getElementById("toast");
+    const filterMessage = document.getElementById("filterMessage");
 
-<div class="toast" id="toast" role="status"></div>
-<div class="cart-panel" id="cart-panel" aria-hidden="true">
-  <div class="cart-content">
-    <div class="cart-head">
-      <h3 data-i18n="cartTitle">Twoja torba</h3>
-      <button class="close-cart" id="close-cart" aria-label="Close">×</button>
-    </div>
-    <div class="cart-items" id="cart-items"></div>
-    <div class="cart-total"><span data-i18n="total">Razem</span><strong id="cart-total">0,00 zł</strong></div>
-    <button class="checkout" id="checkout" data-i18n="checkout">PRZEJDŹ DO ZAMÓWIENIA</button>
-    <p class="cart-note" data-i18n="cartNote">To sklep demonstracyjny. Zamówienia i płatności nie są realizowane.</p>
-  </div>
-</div>
+    const cart = [];
+    let toastTimer;
 
-<script>
-const products = [
- {id:1,cat:"face",name:{pl:"Serum rozświetlające",en:"Glow Serum",ru:"Сияющая сыворотка"},type:{pl:"PIELĘGNACJA TWARZY",en:"FACE CARE",ru:"УХОД ЗА ЛИЦОМ"},desc:{pl:"Lekka formuła na co dzień",en:"A lightweight daily formula",ru:"Лёгкая формула на каждый день"},price:89,image:"photo-1608248543803-ba4f8c70ae0b",tag:{pl:"BESTSELLER",en:"BESTSELLER",ru:"ХИТ"}},
- {id:2,cat:"face",name:{pl:"Krem nawilżający",en:"Hydrating Cream",ru:"Увлажняющий крем"},type:{pl:"CODZIENNA RUTYNA",en:"DAILY ROUTINE",ru:"ЕЖЕДНЕВНЫЙ УХОД"},desc:{pl:"Komfort i miękkość skóry",en:"Comfort and skin softness",ru:"Комфорт и мягкость кожи"},price:75,image:"photo-1556229010-6c3f2c9ca5f8",tag:{pl:"ULUBIENIEC",en:"FAVOURITE",ru:"ФАВОРИТ"}},
- {id:3,cat:"body",name:{pl:"Olejek do ciała",en:"Body Oil",ru:"Масло для тела"},type:{pl:"PIELĘGNACJA CIAŁA",en:"BODY CARE",ru:"УХОД ЗА ТЕЛОМ"},desc:{pl:"Jedwabiste wykończenie",en:"A silky finish",ru:"Шелковистый финиш"},price:69,image:"photo-1601049541289-9b1b7bbbfe19",tag:{pl:"NOWOŚĆ",en:"NEW",ru:"НОВИНКА"}},
- {id:4,cat:"sets",name:{pl:"Zestaw codzienny",en:"Daily Ritual Set",ru:"Ежедневный набор"},type:{pl:"ZESTAW PIELĘGNACYJNY",en:"SKINCARE SET",ru:"НАБОР ДЛЯ УХОДА"},desc:{pl:"Mały rytuał, wielka przyjemność",en:"A little ritual, a lovely feeling",ru:"Маленький ритуал — большое удовольствие"},price:149,image:"photo-1571781926291-c477ebfd024b",tag:{pl:"ZESTAW",en:"SET",ru:"НАБОР"}}
-];
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-const translations = {
-pl:{
-announcement:"BEZPŁATNA DOSTAWA OD 199 ZŁ · RYTUAŁ PIĘKNA ZACZYNA SIĘ TUTAJ",
-navShop:"Sklep",navStory:"Nasza filozofia",navContact:"Kontakt",
-heroEyebrow:"Mniej, ale lepiej",heroTitle:"Twoja skóra.<br><em>Twój rytuał.</em>",
-heroText:"Poznaj świadomą pielęgnację stworzoną z myślą o codziennych chwilach dla siebie.",
-heroButton:"Odkryj kolekcję ↗",heroNote:"Chwila tylko dla Ciebie.",
-benefit1:"Starannie dobrane składniki",benefit2:"Prosta codzienna rutyna",benefit3:"Piękno bez pośpiechu",
-shopEyebrow:"Twoje nowe ulubione",shopTitle:"Rytuały pielęgnacji",
-shopText:"Niewiele kroków. Przyjemne tekstury. Chwile, które należą do Ciebie.",
-filterAll:"Wszystko",filterFace:"Twarz",filterBody:"Ciało",filterSets:"Zestawy",
-storyEyebrow:"Filozofia LUMÉA",storyTitle:"Piękno w prostocie.",
-storyText:"Wierzymy, że pielęgnacja nie musi być skomplikowana. To kilka świadomych wyborów, delikatne tekstury i codzienny moment, w którym możesz zwolnić.",
-storyQuote:"„Zadbaj o siebie tak, jak dbasz o wszystko, co kochasz”.",
-storyButton:"Poznaj nasze produkty ↗",newsEyebrow:"Listy pełne inspiracji",
-newsTitle:"Trochę piękna w Twojej skrzynce.",newsText:"Dołącz do naszego świata pielęgnacji i odkrywaj nowe rytuały.",
-newsButton:"DOŁĄCZ",email:"Twój adres e-mail",
-footerText:"Świadoma pielęgnacja. Codzienne małe rytuały.<br>Projekt demonstracyjny do portfolio.",
-add:"DODAJ DO TORBY",added:"Dodano do torby",cartTitle:"Twoja torba",
-empty:"Twoja torba jest pusta.",remove:"Usuń",total:"Razem",
-checkout:"PRZEJDŹ DO ZAMÓWIENIA",cartNote:"To sklep demonstracyjny. Zamówienia i płatności nie są realizowane.",
-checkoutMessage:"To wersja demonstracyjna — płatności nie są aktywne.",
-newsletterMessage:"Dziękujemy! Formularz jest demonstracyjny i nie zapisuje adresu e-mail."
-},
-en:{
-announcement:"FREE DELIVERY OVER 199 PLN · YOUR BEAUTY RITUAL STARTS HERE",
-navShop:"Shop",navStory:"Our philosophy",navContact:"Contact",
-heroEyebrow:"Less, but better",heroTitle:"Your skin.<br><em>Your ritual.</em>",
-heroText:"Discover thoughtful skincare made for everyday moments of self-care.",
-heroButton:"Explore the collection ↗",heroNote:"A moment just for you.",
-benefit1:"Thoughtfully selected ingredients",benefit2:"A simple daily routine",benefit3:"Beauty without the rush",
-shopEyebrow:"Your new favourites",shopTitle:"Skincare rituals",
-shopText:"Fewer steps. Beautiful textures. Moments that belong to you.",
-filterAll:"All",filterFace:"Face",filterBody:"Body",filterSets:"Sets",
-storyEyebrow:"The LUMÉA philosophy",storyTitle:"Beauty in simplicity.",
-storyText:"We believe skincare doesn't have to be complicated. A few thoughtful choices, gentle textures and a daily moment to slow down.",
-storyQuote:"“Care for yourself as you care for everything you love.”",
-storyButton:"Discover our products ↗",newsEyebrow:"Notes of inspiration",
-newsTitle:"A little beauty in your inbox.",newsText:"Join our skincare world and discover new rituals.",
-newsButton:"JOIN",email:"Your email address",
-footerText:"Thoughtful skincare. Small daily rituals.<br>A portfolio demonstration project.",
-add:"ADD TO BAG",added:"Added to bag",cartTitle:"Your bag",
-empty:"Your bag is empty.",remove:"Remove",total:"Total",
-checkout:"CONTINUE TO CHECKOUT",cartNote:"Demo store. Orders and payments are not processed.",
-checkoutMessage:"This is a demo — payments are not active.",
-newsletterMessage:"Thank you! This demo form does not save email addresses."
-},
-ru:{
-announcement:"БЕСПЛАТНАЯ ДОСТАВКА ОТ 199 PLN · ТВОЙ РИТУАЛ КРАСОТЫ НАЧИНАЕТСЯ ЗДЕСЬ",
-navShop:"Магазин",navStory:"Наша философия",navContact:"Контакты",
-heroEyebrow:"Меньше, но лучше",heroTitle:"Твоя кожа.<br><em>Твой ритуал.</em>",
-heroText:"Осознанный уход, созданный для ежедневных моментов заботы о себе.",
-heroButton:"Открыть коллекцию ↗",heroNote:"Момент только для тебя.",
-benefit1:"Тщательно подобранные ингредиенты",benefit2:"Простой ежедневный уход",benefit3:"Красота без спешки",
-shopEyebrow:"Твои новые фавориты",shopTitle:"Ритуалы ухода",
-shopText:"Меньше шагов. Приятные текстуры. Время, которое принадлежит тебе.",
-filterAll:"Все товары",filterFace:"Лицо",filterBody:"Тело",filterSets:"Наборы",
-storyEyebrow:"Философия LUMÉA",storyTitle:"Красота в простоте.",
-storyText:"Мы верим, что уход не должен быть сложным. Несколько осознанных решений, нежные текстуры и ежедневный момент, чтобы замедлиться.",
-storyQuote:"«Заботься о себе так же, как обо всём, что любишь».",
-storyButton:"Посмотреть продукты ↗",newsEyebrow:"Письма с вдохновением",
-newsTitle:"Немного красоты в твоей почте.",newsText:"Присоединяйся к нашему миру ухода и открывай новые ритуалы.",
-newsButton:"ПОДПИСАТЬСЯ",email:"Твой адрес электронной почты",
-footerText:"Осознанный уход. Маленькие ежедневные ритуалы.<br>Демонстрационный проект для портфолио.",
-add:"В КОРЗИНУ",added:"Добавлено в корзину",cartTitle:"Твоя корзина",
-empty:"Корзина пока пуста.",remove:"Удалить",total:"Итого",
-checkout:"ПЕРЕЙТИ К ОФОРМЛЕНИЮ",cartNote:"Демонстрационный магазин. Заказы и платежи не обрабатываются.",
-checkoutMessage:"Это демонстрационная версия — оплата не подключена.",
-newsletterMessage:"Спасибо! Демонстрационная форма не сохраняет адрес электронной почты."
-}
-};
+    /* ---------- Toast ---------- */
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
 
-let lang="pl", filter="all", cart=[];
-const money=n=>new Intl.NumberFormat(lang==="pl"?"pl-PL":lang==="ru"?"ru-RU":"en-GB",{style:"currency",currency:"PLN"}).format(n);
-const tr=k=>translations[lang][k]||translations.pl[k];
-function renderProducts(){
- const list=products.filter(p=>filter==="all"||p.cat===filter);
- document.getElementById("products").innerHTML=list.map(p=>`
- <article class="product">
-  <div class="product-photo">
-   <img src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=700&q=80" alt="${p.name[lang]}" loading="lazy">
-   <span class="tag">${p.tag[lang]}</span>
-   <button class="quick-add" data-add="${p.id}">${tr("add")} +</button>
-  </div>
-  <div class="product-info">
-   <div class="product-type">${p.type[lang]}</div>
-   <div class="product-title">${p.name[lang]}</div>
-   <div class="product-desc">${p.desc[lang]}</div>
-   <div class="price-row"><strong>${money(p.price)}</strong><span class="stars">★★★★★</span></div>
-  </div>
- </article>`).join("");
-}
-function renderCart(){
- const items=document.getElementById("cart-items");
- document.getElementById("cart-count").textContent=cart.reduce((n,p)=>n+p.qty,0);
- if(!cart.length)items.innerHTML=`<p>${tr("empty")}</p>`;
- else items.innerHTML=cart.map(p=>`<div class="cart-item"><div><strong>${p.name[lang]}</strong><small>${money(p.price)} × ${p.qty}</small></div><button class="remove" data-remove="${p.id}">${tr("remove")}</button></div>`).join("");
- document.getElementById("cart-total").textContent=money(cart.reduce((n,p)=>n+p.price*p.qty,0));
-}
-function showToast(text){
- const t=document.getElementById("toast");t.textContent=text;t.classList.add("show");
- setTimeout(()=>t.classList.remove("show"),1800);
-}
-function setLanguage(value){
- lang=value;document.documentElement.lang=lang;
- document.querySelectorAll("[data-i18n]").forEach(el=>{
-  const key=el.dataset.i18n;
-  if(translations[lang][key])el.innerHTML=translations[lang][key];
- });
- document.getElementById("email").placeholder=tr("email");
- document.getElementById("open-cart").innerHTML=`${lang==="pl"?"TORBA":lang==="ru"?"КОРЗИНА":"BAG"} (<span id="cart-count">0</span>)`;
- document.querySelectorAll(".filter").forEach(b=>{
-  const keys={all:"filterAll",face:"filterFace",body:"filterBody",sets:"filterSets"};
-  b.textContent=tr(keys[b.dataset.filter]);
- });
- renderProducts();renderCart();
-}
-document.getElementById("language").addEventListener("change",e=>setLanguage(e.target.value));
-document.querySelector(".filters").addEventListener("click",e=>{
- const b=e.target.closest("[data-filter]");if(!b)return;
- filter=b.dataset.filter;
- document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));
- renderProducts();
-});
-document.getElementById("products").addEventListener("click",e=>{
- const b=e.target.closest("[data-add]");if(!b)return;
- const p=products.find(x=>x.id===Number(b.dataset.add));
- const existing=cart.find(x=>x.id===p.id);
- if(existing)existing.qty++;else cart.push({...p,qty:1});
- renderCart();showToast(`${p.name[lang]} — ${tr("added").toLowerCase()}`);
-});
-document.getElementById("cart-items").addEventListener("click",e=>{
- const b=e.target.closest("[data-remove]");if(!b)return;
- cart=cart.filter(p=>p.id!==Number(b.dataset.remove));renderCart();
-});
-const panel=document.getElementById("cart-panel");
-document.getElementById("open-cart").addEventListener("click",()=>{
- renderCart();panel.classList.add("open");panel.setAttribute("aria-hidden","false");
-});
-function closeCart(){panel.classList.remove("open");panel.setAttribute("aria-hidden","true")}
-document.getElementById("close-cart").addEventListener("click",closeCart);
-panel.addEventListener("click",e=>{if(e.target===panel)closeCart()});
-document.getElementById("checkout").addEventListener("click",()=>showToast(tr("checkoutMessage")));
-document.getElementById("newsletter-form").addEventListener("submit",e=>{
- e.preventDefault();document.getElementById("newsletter-message").textContent=tr("newsletterMessage");
- document.getElementById("email").value="";
-});
-document.getElementById("year").textContent=new Date().getFullYear();
-setLanguage("pl");
-</script>
+    /* ---------- Menu mobilne ---------- */
+    function closeMenu(options = {}) {
+      const { returnFocus = false } = options;
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Otwórz menu");
+      menuToggle.textContent = "☰";
+      if (returnFocus) menuToggle.focus();
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Zamknij menu" : "Otwórz menu");
+      menuToggle.textContent = isOpen ? "×" : "☰";
+
+      if (isOpen) {
+        // фокус на первую ссылку
+        const firstLink = navLinks.querySelector("a");
+        if (firstLink) firstLink.focus();
+      }
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => closeMenu());
+    });
+
+    /* Esc закрывает меню и возвращает фокус на кнопку */
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && navLinks.classList.contains("open")) {
+        closeMenu({ returnFocus: true });
+      }
+    });
+
+    /* Клик вне меню */
+    document.addEventListener("click", event => {
+      if (!navLinks.classList.contains("open")) return;
+      if (navLinks.contains(event.target) || menuToggle.contains(event.target)) return;
+      closeMenu();
+    });
+
+    /* Сброс при переходе на десктоп */
+    const desktopQuery = window.matchMedia("(min-width: 601px)");
+    desktopQuery.addEventListener("change", event => {
+      if (event.matches) closeMenu();
+    });
+
+    /* ---------- Плюрализация по-польски ---------- */
+    function plural(n) {
+      if (n === 1) return "produkt";
+      if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return "produkty";
+      return "produktów";
+    }
+
+    /* ---------- Filtry ---------- */
+    document.querySelectorAll(".filter").forEach(button => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        let visibleCount = 0;
+
+        document.querySelectorAll(".filter").forEach(item => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+
+        document.querySelectorAll(".product").forEach(product => {
+          const isVisible = filter === "all" || product.dataset.category === filter;
+          product.hidden = !isVisible;
+          if (isVisible) visibleCount += 1;
+        });
+
+        filterMessage.textContent = visibleCount === 0
+          ? "Brak produktów w tej kategorii."
+          : "Wyświetlono " + visibleCount + " " + plural(visibleCount) + ".";
+      });
+    });
+
+    /* ---------- Koszyk ---------- */
+    function updateCartLabel() {
+      const count = cart.length;
+      cartCount.textContent = count;
+      cartButton.setAttribute(
+        "aria-label",
+        count === 0 ? "Koszyk jest pusty" : "Koszyk, produktów: " + count
+      );
+    }
+
+    document.querySelectorAll(".add-button").forEach(button => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.product;
+        cart.push(name);
+        updateCartLabel();
+        showToast(name + " — dodano do koszyka.");
+      });
+    });
+
+    cartButton.addEventListener("click", () => {
+      if (cart.length === 0) {
+        showToast("Twój koszyk jest pusty.");
+        return;
+      }
+
+      const summary = cart.reduce((result, name) => {
+        result[name] = (result[name] || 0) + 1;
+        return result;
+      }, {});
+
+      const lines = Object.entries(summary).map(([name, quantity]) => {
+        return name + " × " + quantity;
+      });
+
+      showToast("Twój koszyk: " + lines.join(", "));
+    });
+
+    updateCartLabel();
+
+    /* ---------- Newsletter ---------- */
+    document.getElementById("newsletterForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      // Браузер сам не даст отправить невалидную форму,
+      // поэтому checkValidity() здесь избыточен.
+      const message = document.getElementById("formMessage");
+      message.textContent = "Formularz demonstracyjny — zapisy nie są jeszcze aktywne.";
+      event.target.reset();
+    });
+  </script>
 </body>
 </html>
